@@ -1,0 +1,21 @@
+# Ignorar el entorno virtual
+/entorno/
+
+# Ignorar archivos de configuración sensibles
+*.pyc
+__pycache__/
+
+# Ignorar archivos de configuración de Django
+db.sqlite3
+*.log
+
+# Ignorar archivos de credenciales
+credentials.json
+token.pickle
+
+# Ignorar archivos del IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de caché
+*.swp
