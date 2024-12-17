@@ -1,0 +1,15 @@
+<!-- artistas/templates/artistas/listar_artistas.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Artistas</title>
+</head>
+<body>
+    <h1>Artistas</h1>
+    <ul>
+        {% for artista in artistas %}
+            <li>{{ artista.nombre }} {{ artista.apellido }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
