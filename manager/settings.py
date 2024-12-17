@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,7 +41,11 @@ INSTALLED_APPS = [
     # Mis apps
     'login',
     'panel',
+    'gestion_managers',
+    'crispy_forms',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 LOGIN_URL = 'login'  # Esto redirige a la vista de login definida en la app login
 # No desactives CSRF a menos que sea absolutamente necesario
 # settings.py
@@ -61,7 +66,8 @@ ROOT_URLCONF = 'manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

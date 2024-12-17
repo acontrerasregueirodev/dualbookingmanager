@@ -1,0 +1,34 @@
+<!-- gestion_managers/ver_manager.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Managers</title>
+</head>
+<body>
+    <h1>Lista de Managers</h1>
+
+    {% for manager in managers %}
+        <div>
+            <h2>{{ manager.nombre }} - {{ manager.user.email }}</h2>
+            <p>Teléfono: {{ manager.telefono }}</p>
+
+            <h3>Archivos:</h3>
+            {% if manager.archivos.all %}
+                <ul>
+                    {% for archivo in manager.archivos.all %}
+                        <li>
+                            <strong>{{ archivo.titulo }}</strong>: {{ archivo.descripcion }}<br>
+                            <a href="{{ archivo.archivo.url }}">Descargar</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay archivos asociados.</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>
