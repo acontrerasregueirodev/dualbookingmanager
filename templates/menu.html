@@ -1,0 +1,32 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <!-- Usuario -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="#" class="d-block">{{ request.user.username }}</a>
+            </div>
+        </div>
+
+        <!-- Navegación -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                <!-- Artistas -->
+                <li class="nav-item">
+                    <a href="{% url 'artista-list' %}" class="nav-link">
+                        <p class="ml-2">Artistas</p>
+                        <i class="nav-icon fas fa-user-tie"></i>
+                    </a>
+                </li>
+                
+                <!-- Botón de cerrar sesión -->
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <p class="ml-2">Cerrar sesión</p>
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

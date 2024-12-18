@@ -39,16 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Mis apps
-    'grappelli',
     'login',
-    'panel',
-    'gestion_managers',
-    'crispy_forms',
     'artistas',
-    'eventos',
-    'clientes',
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'  # Esto redirige a la vista de login definida en la app login
 # No desactives CSRF a menos que sea absolutamente necesario
@@ -70,8 +63,9 @@ ROOT_URLCONF = 'manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates',
-                 ],
+        'DIRS': [
+            BASE_DIR / 'templates',  # 
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,7 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+# Carpeta para los archivos estáticos de cada app (Django lo hará automáticamente)
+STATIC_ROOT = BASE_DIR / "/static/" 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

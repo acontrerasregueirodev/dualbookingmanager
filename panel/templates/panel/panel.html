@@ -1,17 +1,9 @@
+{% extends "base.html" %}
 <!-- dashboard/templates/dashboard/dashboard.html -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% block content %}
     <div class="container">
         <h2 class="my-5 text-center">Bienvenido al Dashboard</h2>
         <p>Esta es una página exclusiva para usuarios logueados.</p>
         <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
     </div>
-</body>
-</html>
+{% endblock %}

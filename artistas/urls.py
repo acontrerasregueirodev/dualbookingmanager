@@ -2,28 +2,26 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # URL para ver todos los DJs
-    path('djs/', views.ver_djs, name='ver_djs'),
+    # Ruta para listar todos los artistas
+    path('', views.ArtistaListView.as_view(), name='artista-list'),
     
-    # URL para ver un DJ específico
-    path('djs/<int:pk>/', views.ver_dj, name='ver_dj'),
-
-    # URL para ver todos los managers
-    path('managers/', views.ver_managers, name='ver_managers'),
+    # Ruta para ver los detalles de un artista específico
+    path('artistas/<int:pk>/', views.ArtistaDetailView.as_view(), name='artista-detail'),
     
-    # URL para ver un manager específico
-    path('managers/<int:pk>/', views.ver_manager, name='ver_manager'),
-
-    # URL para ver todos los eventos
-    path('eventos/', views.ver_eventos, name='ver_eventos'),
+    # Ruta para agregar un nuevo artista
+    path('artistas/nuevo/', views.ArtistaCreateView.as_view(), name='artista-create'),
     
-    # URL para ver un evento específico
-    path('eventos/<int:pk>/', views.ver_evento, name='ver_evento'),
+    # Ruta para editar un artista existente
+    path('artistas/<int:pk>/editar/', views.ArtistaUpdateView.as_view(), name='artista-edit'),
+    
+    # Ruta para eliminar un artista
+    path('artistas/<int:pk>/eliminar/', views.ArtistaDeleteView.as_view(), name='artista-delete'),
 
-    # URL para ver todas las fotos de los DJs
-    path('fotos/', views.ver_fotos, name='ver_fotos'),
-
-    # URL para ver todas las documentaciones relacionadas con un DJ
-    path('documentos/', views.ver_documentos, name='ver_documentos'),
+    # Rutas para fotos
+    path('artistas/<int:artista_id>/fotos/', views.FotoListView.as_view(), name='foto-list'),
+    path('artistas/<int:artista_id>/fotos/nueva/', views.FotoCreateView.as_view(), name='foto-create'),
+    
+    # Rutas para documentos
+    path('artistas/<int:artista_id>/documentos/', views.DocumentoListView.as_view(), name='documento-list'),
+    path('artistas/<int:artista_id>/documentos/nuevo/', views.DocumentoCreateView.as_view(), name='documento-create'),
 ]
-

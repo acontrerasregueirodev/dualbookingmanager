@@ -1,52 +1,39 @@
 from django.db import models
 
-class Manager(models.Model):
+class Artista(models.Model):
+    nombre_artistico = models.CharField(max_length=255)  # Nombre artístico
     nombre = models.CharField(max_length=255)
     apellido_1 = models.CharField(max_length=255)
     apellido_2 = models.CharField(max_length=255)
-    email = models.EmailField()
-    telefono = models.CharField(max_length=20, blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.nombre} {self.apellido_1}"
-
-class Evento(models.Model):
-    nombre = models.CharField(max_length=255)
-    fecha_evento = models.DateField()
-    lugar = models.CharField(max_length=255)
-    descripcion = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.nombre
-
-class DJ(models.Model):
-    nombre = models.CharField(max_length=255)
-    apellido_1 = models.CharField(max_length=255)
-    apellido_2 = models.CharField(max_length=255)
-    nombre_artistico = models.CharField(max_length=255, blank=True, null=True)  # Nuevo campo para el nombre artístico
     direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=20, blank=True, null=True)
+    telefono = models.CharField(max_length=20)
     email = models.EmailField()
-    tarifa_hora = models.DecimalField(max_digits=8, decimal_places=2)
-    experiencia = models.IntegerField()  # años de experiencia
-    activo = models.BooleanField(default=True)  # Si el DJ está activo
-    manager = models.ForeignKey(Manager, related_name='djs', on_delete=models.CASCADE)
-    disponibilidad = models.BooleanField(default=True)  # Si el DJ está disponible para eventos
+    activo = models.BooleanField(default=True)  # Si el artista está activo
+    disponibilidad = models.BooleanField(default=True)  # Si el artista está disponible para eventos
+    fecha_registro = models.DateTimeField(auto_now_add=True)  # Fecha en que se registró el artista
 
     def __str__(self):
         return f"{self.nombre_artistico if self.nombre_artistico else self.nombre} {self.apellido_1}"
+
+    class Meta:
+        db_table = 'artistas_artista'  # Define el nombre de la tabla
+
 class Foto(models.Model):
-    dj = models.ForeignKey(DJ, related_name='fotos', on_delete=models.CASCADE)  # Relación con DJ
+    artista = models.ForeignKey(Artista, related_name='fotos', on_delete=models.CASCADE)  # Relación con el artista
     descripcion = models.CharField(max_length=255, blank=True, null=True)
-    foto_url = models.URLField()  # URL de la foto, en lugar de un campo FileField
+    foto_url = models.URLField()  # URL de la foto
+    fecha_subida = models.DateTimeField(auto_now_add=True)  # Fecha de subida de la foto
 
     def __str__(self):
-        return f"Foto de {self.dj.nombre} ({self.descripcion})"
+        return f"Foto de {self.artista.nombre} ({self.descripcion})"
+
 
 class Documento(models.Model):
-    dj = models.ForeignKey(DJ, related_name='documentos', on_delete=models.CASCADE)
-    archivo = models.FileField(upload_to='djs/documentos/')  # Archivo del documento
+    artista = models.ForeignKey(Artista, related_name='documentos', on_delete=models.CASCADE)
+    archivo = models.FileField(upload_to='artista/documentos/')  # Ruta donde se suben los documentos
     descripcion = models.CharField(max_length=255, blank=True, null=True)  # Descripción del documento
+    titulo = models.CharField(max_length=255)  # Título del documento
+    fecha_subida = models.DateTimeField(auto_now_add=True)  # Fecha en que se subió el documento
 
     def __str__(self):
-        return f"Documento de {self.dj.nombre}"
+        return f"Documento de {self.artista.nombre} - {self.titulo}"

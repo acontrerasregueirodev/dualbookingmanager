@@ -22,10 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),  # Incluye las URLs de la app login
     path('panel/', include('panel.urls')),  # Las rutas de la app dashboard
-    path('', include('gestion_managers.urls')),
     path('artistas/', include('artistas.urls')),  # Asegúrate de incluir las URLs de la app 'djs'
-    path('clientes/', include('clientes.urls')),  # Agregar esta línea
-    path('grappelli/', include('grappelli.urls')), 
-
-
 ]

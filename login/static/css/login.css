@@ -1,0 +1,35 @@
+/* login/static/css/login.css */
+
+body {
+    background-color: #f4f4f9;
+}
+
+.card {
+    border-radius: 8px;
+    padding: 1rem; /* Reducido padding de la tarjeta */
+}
+
+h2 {
+    font-size: 1.5rem; /* Título más pequeño */
+}
+
+.form-group {
+    margin-bottom: 10px; /* Reducir margen entre campos */
+}
+
+.form-control {
+    font-size: 0.85rem; /* Reducir tamaño de la fuente en los inputs */
+}
+
+button {
+    font-size: 0.9rem; /* Reducir tamaño de la fuente del botón */
+    padding: 0.5rem; /* Reducir padding del botón */
+}
+
+label {
+    font-size: 0.85rem; /* Reducir tamaño de las etiquetas */
+}
+
+.form-control-sm {
+    font-size: 0.85rem; /* Reducir el tamaño de los inputs aún más */
+}

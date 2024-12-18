@@ -1,42 +1,52 @@
-from django.shortcuts import render, get_object_or_404
-from .models import DJ, Manager, Evento, Foto, Documento
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Artista, Foto, Documento
+from django.urls import reverse_lazy
 
-# Vista para ver todos los DJs
-def ver_djs(request):
-    djs = DJ.objects.all()
-    return render(request, 'djs/ver_djs.html', {'djs': djs})
+# Vista para listar los artistas
+class ArtistaListView(ListView):
+    model = Artista
+    template_name = 'artistas/artistas.html'
 
-# Vista para ver un DJ específico
-def ver_dj(request, pk):
-    dj = get_object_or_404(DJ, pk=pk)
-    return render(request, 'djs/ver_dj.html', {'dj': dj})
+# Vista para ver los detalles de un artista
+class ArtistaDetailView(DetailView):
+    model = Artista
+    template_name = 'artistas/artista_detail.html'
 
-# Vista para ver todos los Managers
-def ver_managers(request):
-    managers = Manager.objects.all()
-    return render(request, 'djs/ver_managers.html', {'managers': managers})
+# Vista para crear un nuevo artista
+class ArtistaCreateView(CreateView):
+    model = Artista
+    template_name = 'artistas/artista_form.html'
+    fields = ['nombre', 'apellido_1', 'apellido_2', 'nombre_artistico', 'direccion', 'telefono', 'email', 'tarifa_hora', 'experiencia', 'activo', 'disponibilidad']
 
-# Vista para ver un Manager específico
-def ver_manager(request, pk):
-    manager = get_object_or_404(Manager, pk=pk)
-    return render(request, 'djs/ver_manager.html', {'manager': manager})
+# Vista para editar un artista existente
+class ArtistaUpdateView(UpdateView):
+    model = Artista
+    template_name = 'artistas/artista_form.html'
+    fields = ['nombre', 'apellido_1', 'apellido_2', 'nombre_artistico', 'direccion', 'telefono', 'email', 'tarifa_hora', 'experiencia', 'activo', 'disponibilidad']
 
-# Vista para ver todos los eventos
-def ver_eventos(request):
-    eventos = Evento.objects.all()
-    return render(request, 'djs/ver_eventos.html', {'eventos': eventos})
+# Vista para eliminar un artista
+class ArtistaDeleteView(DeleteView):
+    model = Artista
+    template_name = 'artistas/artista_confirm_delete.html'
+    success_url = reverse_lazy('artista-list')
 
-# Vista para ver un evento específico
-def ver_evento(request, pk):
-    evento = get_object_or_404(Evento, pk=pk)
-    return render(request, 'djs/ver_evento.html', {'evento': evento})
+# Vistas para manejar fotos
+class FotoListView(ListView):
+    model = Foto
+    template_name = 'artistas/foto_list.html'
 
-# Vista para ver todas las fotos de los DJs
-def ver_fotos(request):
-    fotos = Foto.objects.all()
-    return render(request, 'djs/ver_fotos.html', {'fotos': fotos})
+class FotoCreateView(CreateView):
+    model = Foto
+    template_name = 'artistas/foto_form.html'
+    fields = ['descripcion', 'foto_url']
 
-# Vista para ver todos los documentos relacionados con los DJs
-def ver_documentos(request):
-    documentos = Documento.objects.all()
-    return render(request, 'djs/ver_documentos.html', {'documentos': documentos})
+# Vistas para manejar documentos
+class DocumentoListView(ListView):
+    model = Documento
+    template_name = 'artistas/documento_list.html'
+
+class DocumentoCreateView(CreateView):
+    model = Documento
+    template_name = 'artistas/documento_form.html'
+    fields = ['titulo', 'descripcion', 'archivo']

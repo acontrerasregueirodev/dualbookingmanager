@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h4 class="my-5 text-center">Lista de Artistas</h4>
+        
+        <!-- Fila con el input de búsqueda y el botón de agregar artista -->
+        <div class="d-flex justify-content-between mb-3">
+            <!-- Input de búsqueda -->
+            <input type="text" class="form-control w-50" placeholder="Buscar artista..." id="searchInput">
+            
+            <!-- Botón de agregar artista -->
+            <a href="{% url 'artista-create' %}" class="btn btn-primary">Agregar artista</a>
+        </div>
+        
+        <!-- Lista de artistas -->
+        <ul class="list-group" id="artistList">
+            {% for artista in object_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center artist-item" data-nombre="{{ artista.nombre }} {{ artista.apellido_1 }}">
+                    <a href="{% url 'artista-detail' artista.pk %}">{{ artista.nombre }} {{ artista.apellido_1 }}</a>
+                    <div>
+                        <a href="{% url 'artista-edit' artista.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'artista-delete' artista.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Script para filtrar la lista de artistas -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const items = document.querySelectorAll('.artist-item');
+            
+            searchInput.addEventListener('keyup', function() {
+                const filter = searchInput.value.toLowerCase();
+                console.log('Filtro aplicado:', filter);  // Verificar el valor del filtro
+
+                let found = false;  // Para detectar si hay resultados
+
+                items.forEach(item => {
+                    const name = item.getAttribute('data-nombre').toLowerCase();
+                    console.log('Nombre del artista:', name);  // Verificar el nombre del artista
+
+                    // Comparar el filtro con el nombre del artista
+                    if (name.includes(filter)) {
+                        item.classList.remove('d-none');  // Mostrar el item
+                        found = true;
+                    } else {
+                        item.classList.add('d-none');  // Ocultar el item
+                    }
+
+                    // Verificación adicional en la consola
+                    console.log('Estado de visibilidad para', name, ':', item.classList.contains('d-none') ? 'oculto' : 'visible');
+                });
+
+                // Si no se encuentran resultados, mostrar mensaje en consola
+                if (!found && filter) {
+                    console.log('No se encontraron resultados para el filtro: ' + filter);
+                }
+            });
+        });
+    </script>
+{% endblock %}
