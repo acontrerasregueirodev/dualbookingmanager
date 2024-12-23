@@ -1,0 +1,122 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 100%;         /* Ajusta el contenedor para que ocupe el 100% del ancho disponible */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h4 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Table styles */
+/* Eliminar hover en el thead */
+.custom-table thead {
+    background-color: #343a40; /* Encabezado oscuro */
+    color: #fff; /* Texto blanco */
+    text-align: left;
+    padding: 0.5rem; /* Reducido el padding */
+    pointer-events: none; /* Desactiva los eventos de hover en el thead */
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+.custom-table tbody tr {
+    height: 40px;
+    background-color: #f8f9fa; /* Fondo claro */
+}
+
+.custom-table tbody tr:hover {
+    background-color: #e9ecef; /* Fondo más claro al pasar el cursor */
+}
+
+.custom-table td,
+.custom-table th {
+    padding: 0.5rem; /* Ajuste en el padding */
+    border-bottom: 1px solid #dee2e6; /* Bordes entre filas */
+}
+
+/* Botón estilos */
+.btn-primary {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+    border-color: #357abd;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #f4b62f;
+    border-color: #f8c146;
+    color:black;
+}
+
+.btn-warning:hover {
+    background-color: #cb8f1e;
+    border-color: #f6b12e;
+    color: black;
+}
+
+.btn-danger {
+    background-color: #e94b35;
+    border-color: #e94b35;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #d9432f;
+    border-color: #d9432f;
+    color: #fff;
+}
+
+/* Links */
+.text-primary {
+    color: #4a90e2;
+}
+
+/* Card styles */
+.card {
+    border: none; /* Elimina el borde externo */
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombras para destacar */
+    margin-left: -10px;  /* Reducir márgenes */
+    margin-right: -10px; /* Reducir márgenes */
+}
+
+.card-body {
+    background-color: #ffffff;
+}
+
+/* Ajustes adicionales para la tabla */
+.table {
+    width: 100%;          /* Ocupa todo el ancho disponible */
+    table-layout: fixed;  /* Evita que las celdas se expandan de forma inesperada */
+}
+
+.custom-table td, 
+.custom-table th {
+    padding: 0.3rem; /* Ajuste del padding */
+}
+
+.container {
+    padding-left: 10px;  /* Reducir más el padding a la izquierda */
+    padding-right: 10px; /* Reducir más el padding a la derecha */
+}

@@ -1,0 +1,7 @@
+<!-- templates/admin/correo_enviado.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>¡Correo enviado exitosamente!</h1>
+  <a href="{% url 'admin:index' %}">Volver al Panel de Administración</a>
+{% endblock %}

@@ -17,6 +17,8 @@ class Artista(models.Model):
 
     class Meta:
         db_table = 'artistas_artista'  # Define el nombre de la tabla
+        ordering = ['nombre_artistico']  # Orden predeterminado por nombre
+        
 
 class Foto(models.Model):
     artista = models.ForeignKey(Artista, related_name='fotos', on_delete=models.CASCADE)  # Relación con el artista

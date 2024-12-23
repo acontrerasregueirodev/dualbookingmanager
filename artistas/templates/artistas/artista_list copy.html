@@ -2,15 +2,7 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
-
-<!-- Cargar jQuery primero -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- Luego cargar DataTables -->
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-
+<link rel="stylesheet" href="{% static 'artistas/css/artista_list.css' %}">
 <div class="container" style="padding-top: 0px;">
     <h4 class="my-3 text-center text-primary">Lista de Artistas</h4>
 
@@ -68,28 +60,47 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Script cargado correctamente.');
 
-        // Inicializar DataTable cuando el documento esté listo
-        $(document).ready(function() {
-            $('#artistTable').DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "language": {
-                    "search": "Buscar:",
-                    "lengthMenu": "Mostrar _MENU_ registros",
-                    "zeroRecords": "No se encontraron registros coincidentes",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-                    "infoFiltered": "(filtrado de _MAX_ registros en total)"
-                }
-            });
-        });
+        // Verificar los elementos en el DOM
+        var nameColumn = document.getElementById('sortName');
+        var artistNameColumn = document.getElementById('sortArtistName');
+        
+        console.log("sortName:", nameColumn); // Verifica si el elemento existe
+        console.log("sortArtistName:", artistNameColumn); // Verifica si el elemento existe
 
-        // Evento para búsqueda en la tabla (esto lo maneja DataTables)
+        // Verificar si los elementos existen antes de agregarles el evento
+        if (nameColumn) {
+            nameColumn.addEventListener('click', function() {
+                console.log("Clic en la columna 'Nombre'");
+                alert("Clic en la columna 'Nombre'");
+            });
+        }
+
+        if (artistNameColumn) {
+            artistNameColumn.addEventListener('click', function() {
+                console.log("Clic en la columna 'Nombre Artístico'");
+                alert("Clic en la columna 'Nombre Artístico'");
+            });
+        }
+
+        // Evento para búsqueda en la tabla
         var searchInput = document.getElementById('searchInput');
         if (searchInput) {
             searchInput.addEventListener('keyup', function() {
-                var table = $('#artistTable').DataTable();
-                table.search(searchInput.value).draw(); // Filtrar usando el buscador de DataTables
+                var filter = searchInput.value.toLowerCase();
+                var rows = document.querySelectorAll('#artistTable tbody tr');
+
+                rows.forEach(function(row) {
+                    var nombre = row.getAttribute('data-nombre').toLowerCase();
+                    var nombreArtistico = row.getAttribute('data-nombre-artistico').toLowerCase();
+                    var telefono = row.getAttribute('data-telefono').toLowerCase();
+                    var email = row.getAttribute('data-email').toLowerCase();
+
+                    if (nombre.includes(filter) || nombreArtistico.includes(filter) || telefono.includes(filter) || email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
         }
     });

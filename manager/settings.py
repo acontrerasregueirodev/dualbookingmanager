@@ -26,12 +26,17 @@ SECRET_KEY = 'django-insecure-&^79(mdnvu*+bi==4v4*lhn!8!vb+agas@agr(xd0dj*+uhfx%
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
 # Application definition
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 INSTALLED_APPS = [
+    # Jazmin debe ir antes que admin
+    'jazzmin',
+    #
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +46,13 @@ INSTALLED_APPS = [
     # Mis apps
     'login',
     'artistas',
+    'clientes',
+    'eventos',
+]
+LANGUAGE_CODE = 'es'  # Para español
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Español'),
 ]
 
 LOGIN_URL = 'login'  # Esto redirige a la vista de login definida en la app login
@@ -114,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -126,10 +137,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 # Carpeta para los archivos estáticos de cada app (Django lo hará automáticamente)
-STATIC_ROOT = BASE_DIR / "/static/" 
+STATIC_ROOT = BASE_DIR / "/static/", 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+JAZZMIN_SETTINGS = {
+    "search_model":["artistas.Artista"],
+    "order_with_respect_to": ["artistas", "artistas.Artista"],
+    
+    # Side menu custom links
+    #"changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    
+}
+
+
+# Configuración de Brevo (Sendinblue) para el envío de correos electrónicos a través de SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'  # Servidor SMTP de Brevo
+EMAIL_PORT = 587  # Puerto de conexión para TLS
+EMAIL_USE_TLS = True  # Usar conexión segura TLS
+EMAIL_HOST_USER = '8241b4001@smtp-brevo.com'  # Tu dirección de correo de Brevo (usuario SMTP)
+EMAIL_HOST_PASSWORD = 'RgGcX4fra9kCq857'  # Contraseña maestra (clave SMTP)
+DEFAULT_FROM_EMAIL = 'dualbooking@testing.com'  # El correo predeterminado para los envíos
