@@ -23,6 +23,6 @@ urlpatterns = [
     path('', include('login.urls')),  # Incluye las URLs de la app login
     path('panel/', include('panel.urls')),  # Las rutas de la app dashboard
     path('artistas/', include('artistas.urls')),  # Asegúrate de incluir las URLs de la app 'djs'
-    path('mailing/', include('mailing.urls')),  # Agregar la URL de la app mailing
+    #path('mailing/', include('mailing.urls')),  # Agregar la URL de la app mailing
 
 ]

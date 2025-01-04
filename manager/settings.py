@@ -1,3 +1,4 @@
+from decouple import config
 """
 Django settings for manager project.
 
@@ -153,12 +154,15 @@ JAZZMIN_SETTINGS = {
     
 }
 
+# Configuración para enviar correos usando gmail Mail
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"  # Servidor SMTP de Yahoo
+EMAIL_PORT = 587  # Puerto SMTP para conexión segura
+EMAIL_USE_TLS = True  # Usar TLS para seguridad
+EMAIL_HOST_USER = "adrian.contreras.rookie@gmail.com"  # Tu dirección de correo de Yahoo
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='acontrerasregueiro@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 
-# Configuración de Brevo (Sendinblue) para el envío de correos electrónicos a través de SMTP
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'  # Servidor SMTP de Brevo
-EMAIL_PORT = 587  # Puerto de conexión para TLS
-EMAIL_USE_TLS = True  # Usar conexión segura TLS
-EMAIL_HOST_USER = '8241b4001@smtp-brevo.com'  # Tu dirección de correo de Brevo (usuario SMTP)
-EMAIL_HOST_PASSWORD = 'RgGcX4fra9kCq857'  # Contraseña maestra (clave SMTP)
-DEFAULT_FROM_EMAIL = 'dualbooking@testing.com'  # El correo predeterminado para los envíos
+
+
+
