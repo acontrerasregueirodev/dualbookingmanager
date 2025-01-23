@@ -1,4 +1,6 @@
+from django.conf import settings
 from decouple import config
+import os
 """
 Django settings for manager project.
 
@@ -15,6 +17,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -162,7 +166,3 @@ EMAIL_USE_TLS = True  # Usar TLS para seguridad
 EMAIL_HOST_USER = "adrian.contreras.rookie@gmail.com"  # Tu dirección de correo de Yahoo
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='acontrerasregueiro@gmail.com')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-
-
-
-

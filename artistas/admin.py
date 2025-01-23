@@ -1,33 +1,68 @@
 # admin.py
+from django.utils.html import format_html
+from django.urls import reverse
 from django.contrib import admin
 from .models import Artista, Foto, Documento
 from django import forms
 from django.utils.html import mark_safe
 
-# Define el widget personalizado para mostrar una vista previa de la imagen
 class ImagePreviewWidget(forms.ClearableFileInput):
     def render(self, name, value, attrs=None, renderer=None):
-        # Si ya hay una URL de imagen, muestra una miniatura
-        if value:
-            return mark_safe(f'<img src="{value}" width="100" height="100" />')
-        return super().render(name, value, attrs, renderer)
+        output = super().render(name, value, attrs, renderer)
+        # Si value es un archivo subido o ya existe en el modelo
+        if value and hasattr(value, "url"):
+            output = f'<img src="{value.url}" width="100" height="100" style="display:block; margin-bottom: 10px;" />' + output
+        return mark_safe(output)
 
-# Crear un formulario para el modelo Foto
 class FotoForm(forms.ModelForm):
     class Meta:
         model = Foto
-        fields = ['descripcion', 'foto_url']  # Los campos que quieres mostrar
+        fields = ['foto_url', 'descripcion']
 
-    # Usar el widget personalizado para 'foto_url'
-    foto_url = forms.ImageField(widget=ImagePreviewWidget, required=False)
+    # Permitir la vista previa de la imagen
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.foto_url:
+            # Mostrar una miniatura de la imagen si ya está subida
+            self.fields['foto_url'].widget.attrs['readonly'] = True
+            self.fields['foto_url'].help_text = format_html(
+                '<img src="{}" width="100" height="100" style="margin: 5px 0;" />',
+                self.instance.foto_url.url,  # Aquí accedemos a la URL de la imagen
+            )
 
-# Inline para las fotos relacionadas con un Artista
+# Inline personalizado
+
 class FotoInline(admin.TabularInline):
     model = Foto
-    extra = 1  # Número de formularios vacíos que se muestran por defecto
-    form = FotoForm  # Usar el formulario personalizado con el widget
-    fields = ['foto_url', 'descripcion']  # Primero la imagen, luego la descripción
-    readonly_fields = ['fecha_subida']  # Asegura que 'fecha_subida' solo sea visible, no editable
+    form = FotoForm
+    extra = 0  # Evitar formularios vacíos por defecto
+    fields = ['foto_url', 'descripcion', 'acciones']  # Asegúrate de que 'acciones' sea el único campo visible
+    readonly_fields = ['acciones']  # Asegura que la columna 'acciones' solo sea de lectura
+    show_change_link = True  # Esto permite que el enlace de "Ver foto" funcione
+
+    # Botones personalizados
+    def acciones(self, obj):
+        if obj.foto_url:
+            foto_url = obj.foto_url.url  # URL completa de la imagen
+            editar_url = reverse('admin:artistas_foto_change', args=[obj.id])  # Enlace para editar la foto
+            eliminar_url = reverse('admin:artistas_foto_delete', args=[obj.id])  # Enlace para eliminar la foto
+
+            return format_html(
+                '<a href="{}" target="_blank">Ver foto</a> | '
+                '<a href="{}" class="button" style="color: green;">Guardar</a> | '  # Botón de guardar (editar)
+                '<a href="{}" class="button delete-link" style="color: red;">Eliminar</a>',  # Botón de eliminar
+                foto_url,  # Enlace a la imagen
+                editar_url,  # Enlace para editar la foto (guardar)
+                eliminar_url  # Enlace para eliminar la foto
+            )
+        return ""  # Si no hay foto, no devuelve nada para las acciones
+    
+    acciones.short_description = 'Acciones'  # Descripción de la columna
+
+    def has_delete_permission(self, request, obj=None):
+        return False  # Deshabilitar la opción de eliminación en el inline
+
+
 
 # Inline para los documentos relacionados con un Artista
 class DocumentoInline(admin.TabularInline):

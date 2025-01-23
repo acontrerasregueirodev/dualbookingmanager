@@ -21,13 +21,16 @@ class Artista(models.Model):
         
 
 class Foto(models.Model):
-    artista = models.ForeignKey(Artista, related_name='fotos', on_delete=models.CASCADE)  # Relación con el artista
+    artista = models.ForeignKey(Artista, related_name='fotos', on_delete=models.CASCADE)
     descripcion = models.CharField(max_length=255, blank=True, null=True)
-    foto_url = models.URLField()  # URL de la foto
-    fecha_subida = models.DateTimeField(auto_now_add=True)  # Fecha de subida de la foto
+    # Cambia el subdirectorio a 'media/fotos/'
+    foto_url = models.ImageField(upload_to='fotos/')  
+    fecha_subida = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Foto de {self.artista.nombre} ({self.descripcion})"
+
+
 
 
 class Documento(models.Model):
