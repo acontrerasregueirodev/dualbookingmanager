@@ -1,6 +1,5 @@
-from django.conf import settings
-from decouple import config
 import os
+from decouple import config
 """
 Django settings for manager project.
 
@@ -60,7 +59,7 @@ LANGUAGES = [
     ('es', 'Español'),
 ]
 
-LOGIN_URL = 'login'  # Esto redirige a la vista de login definida en la app login
+LOGIN_URL = 'admin'  # Esto redirige a la vista de login definida en la app login
 # No desactives CSRF a menos que sea absolutamente necesario
 # settings.py
 CSRF_COOKIE_SECURE = False  # Asegúrate de que esté configurado correctamente
@@ -81,8 +80,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',  # 
-        ],
+            BASE_DIR / 'templates', #
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,7 +149,7 @@ STATIC_ROOT = BASE_DIR / "/static/",
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
-    "search_model":["artistas.Artista"],
+    "search_model":["artistas.Artista","eventos.Evento"],
     "order_with_respect_to": ["artistas", "artistas.Artista"],
     
     # Side menu custom links

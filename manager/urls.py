@@ -15,14 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('login.urls')),  # Incluye las URLs de la app login
+    re_path(r'^$', lambda request: redirect('/admin/')),  # Redirigir la raíz a /admin
     path('panel/', include('panel.urls')),  # Las rutas de la app dashboard
     path('artistas/', include('artistas.urls')),  # Asegúrate de incluir las URLs de la app 'djs'
     #path('mailing/', include('mailing.urls')),  # Agregar la URL de la app mailing

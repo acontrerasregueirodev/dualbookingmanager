@@ -35,7 +35,7 @@ class Foto(models.Model):
 
 class Documento(models.Model):
     artista = models.ForeignKey(Artista, related_name='documentos', on_delete=models.CASCADE)
-    archivo = models.FileField(upload_to='artista/documentos/')  # Ruta donde se suben los documentos
+    archivo = models.FileField(upload_to='documentos/')  # Ruta donde se suben los documentos
     descripcion = models.CharField(max_length=255, blank=True, null=True)  # Descripción del documento
     titulo = models.CharField(max_length=255)  # Título del documento
     fecha_subida = models.DateTimeField(auto_now_add=True)  # Fecha en que se subió el documento
