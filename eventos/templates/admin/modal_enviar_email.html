@@ -1,0 +1,14 @@
+<div class="custom-modal-backdrop"></div>
+<div class="custom-modal">
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <h2>Seleccionar Archivos</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="archivos">Seleccionar Archivos:</label>
+            <input type="file" name="archivos" multiple>
+            <br><br>
+            <button type="submit" class="btn btn-primary">Enviar Email</button>
+        </form>
+    </div>
+</div>

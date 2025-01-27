@@ -1,0 +1,95 @@
+/* Fondo sombreado para el modal */
+.custom-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    z-index: 1040; /* Debe estar debajo del contenido del modal */
+    display: none; /* Oculto por defecto */
+    pointer-events: auto; /* Permite interactuar con el fondo */
+}
+
+/* Contenedor general del modal */
+.custom-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el modal */
+    z-index: 1050; /* Asegura que esté sobre el fondo */
+    pointer-events: none; /* Evita que interfiera con otros elementos */
+    display: none; /* Oculto por defecto */
+    width: auto; /* El ancho se ajusta automáticamente al contenido */
+    max-width: 90%; /* Límite máximo del ancho del modal */
+    max-height: 80%; /* Límite máximo de la altura del modal */
+    overflow: hidden; /* Desactiva el scroll en el modal */
+    border-radius: 15px; /* Esquinas más redondeadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px; /* Mantener las esquinas redondeadas */
+    box-shadow: none; /* Elimina sombras adicionales en el contenido */
+    z-index: 1060; /* Asegura que esté sobre el fondo */
+    width: 100%; /* El contenido usa todo el ancho disponible dentro del modal */
+    position: relative;
+    pointer-events: auto; /* Permite la interacción */
+    box-sizing: border-box; /* Incluye padding en el tamaño del modal */
+    max-height: calc(100vh - 40px); /* Asegura que el modal no exceda el tamaño de la pantalla */
+    overflow-y: auto; /* Solo permite desplazamiento vertical si es necesario */
+}
+
+/* Botón para cerrar */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Muestra el modal y el fondo sombreado */
+.custom-modal.active,
+.custom-modal-backdrop.active {
+    display: block;
+    pointer-events: auto;
+}
+/* Estilo para los botones */
+button {
+    background-color: #007bff; /* Azul estándar de Jazzmin */
+    color: white; /* Texto en blanco */
+    border: 1px solid #007bff; /* Borde del mismo color */
+    padding: 10px 20px; /* Relleno cómodo */
+    font-size: 14px; /* Tamaño de fuente legible */
+    border-radius: 5px; /* Esquinas redondeadas */
+    cursor: pointer; /* Cambia el cursor cuando está sobre el botón */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transiciones suaves */
+}
+
+/* Efecto hover en los botones */
+button:hover {
+    background-color: #0056b3; /* Azul más oscuro en hover */
+    border-color: #0056b3; /* Asegura que el borde también cambie */
+}
+
+/* Botón de cancelar (con color gris) */
+button[type="button"] {
+    background-color: #6c757d; /* Gris estándar */
+    border-color: #6c757d; /* Borde gris */
+}
+
+/* Efecto hover en el botón de cancelar */
+button[type="button"]:hover {
+    background-color: #5a6268; /* Gris oscuro en hover */
+    border-color: #5a6268; /* Borde gris oscuro */
+}
+
+
+
+
